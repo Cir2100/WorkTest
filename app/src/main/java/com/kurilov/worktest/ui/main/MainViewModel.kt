@@ -7,4 +7,6 @@ class MainViewModel : ViewModel() {
 
     private val apiRepo = ApiRepo
 
+    fun getNews() = apiRepo.getNews()
+
 }

@@ -11,4 +11,6 @@ object ApiRepo {
     //private val _news = MutableLiveData<MyResult<List<Country>>>()
     //val news : LiveData<MyResult<List<Country>>>
     //    get() = _news
+
+    fun getNews() = apiService.getNews("ru")
 }

@@ -7,12 +7,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.kurilov.worktest.R
-import com.kurilov.worktest.data.classes.News
+import com.kurilov.worktest.data.classes.Article
 import com.squareup.picasso.Picasso
 
 class NewsListAdapter : RecyclerView.Adapter<NewsListAdapter.MyViewHolder>() {
 
-    private var items : List<News> = listOf()
+    private var items : List<Article> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView =
@@ -23,14 +23,14 @@ class NewsListAdapter : RecyclerView.Adapter<NewsListAdapter.MyViewHolder>() {
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = items[position]
-        //holder.newsTittleImageView.text = item.name.common
-        //Picasso.get()
-        //    .load(item.flags.png)
-        //    .into(holder.newsImageView)
+        holder.newsTittleImageView.text = item.title
+        Picasso.get()
+            .load(item.urlToImage)
+            .into(holder.newsImageView)
 
     }
 
-    fun updateItems(items: List<News>) {
+    fun updateItems(items: List<Article>) {
         this.items = items
         notifyDataSetChanged()
     }
