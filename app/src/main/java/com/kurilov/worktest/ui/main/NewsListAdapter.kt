@@ -24,8 +24,13 @@ class NewsListAdapter : RecyclerView.Adapter<NewsListAdapter.MyViewHolder>() {
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = items[position]
         holder.newsTittleImageView.text = item.title
+        holder.newsPublishingDate.text = "Дата публикации: " +
+                item.publishedAt.substringBefore("T") + " " +
+                item.publishedAt.substringAfter("T").substringBefore("Z")
         Picasso.get()
             .load(item.urlToImage)
+            .error(R.drawable.no_image)
+            .placeholder(R.drawable.no_image)
             .into(holder.newsImageView)
 
     }
@@ -39,6 +44,7 @@ class NewsListAdapter : RecyclerView.Adapter<NewsListAdapter.MyViewHolder>() {
 
         var newsImageView: ImageView = itemView.findViewById(R.id.newsImageView)
         var newsTittleImageView: TextView = itemView.findViewById(R.id.newsTitleTextView)
+        var newsPublishingDate: TextView = itemView.findViewById(R.id.newsPublishingDateTextView)
     }
 
     override fun getItemCount() = items.size
