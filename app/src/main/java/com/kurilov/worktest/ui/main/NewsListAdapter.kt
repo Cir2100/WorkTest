@@ -25,7 +25,8 @@ class NewsListAdapter(val cellClickListener : MainActivity.CellClickListener) :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = items[position]
-        holder.newsTittleImageView.text = item.title
+        holder.newsTittleImageView.text = item.title.substringBeforeLast("-")
+        holder.newsSourceTextView.text = item.title.substringAfterLast("-")
         holder.newsPublishingDate.text = "Дата публикации: " +
                 item.publishedAt.substringBefore("T") + " " +
                 item.publishedAt.substringAfter("T").substringBefore("Z")
@@ -54,6 +55,7 @@ class NewsListAdapter(val cellClickListener : MainActivity.CellClickListener) :
         var newsImageView: ImageView = itemView.findViewById(R.id.newsImageView)
         var newsTittleImageView: TextView = itemView.findViewById(R.id.newsTitleTextView)
         var newsPublishingDate: TextView = itemView.findViewById(R.id.newsPublishingDateTextView)
+        var newsSourceTextView: TextView = itemView.findViewById(R.id.newsSourceTextView)
     }
 
     override fun getItemCount() = items.size
