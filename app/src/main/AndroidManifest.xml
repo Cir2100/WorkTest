@@ -24,6 +24,12 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ui.webview.WebViewActivity"
+            android:exported="true"
+            android:theme="@style/Theme.WorkTest">
+        </activity>
+
     </application>
 
 </manifest>

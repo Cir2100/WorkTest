@@ -5,12 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kurilov.worktest.R
 import com.kurilov.worktest.data.classes.Article
 import com.squareup.picasso.Picasso
 
-class NewsListAdapter : RecyclerView.Adapter<NewsListAdapter.MyViewHolder>() {
+class NewsListAdapter(val cellClickListener : MainActivity.CellClickListener) :
+    RecyclerView.Adapter<NewsListAdapter.MyViewHolder>() {
 
     private var items : List<Article> = listOf()
 
@@ -32,6 +34,13 @@ class NewsListAdapter : RecyclerView.Adapter<NewsListAdapter.MyViewHolder>() {
             .error(R.drawable.no_image)
             .placeholder(R.drawable.no_image)
             .into(holder.newsImageView)
+
+        holder.itemView.setOnClickListener{
+            val pos = holder.adapterPosition
+            if(pos != DiffUtil.DiffResult.NO_POSITION) {
+                cellClickListener.onClick(item.url)
+            }
+        }
 
     }
 

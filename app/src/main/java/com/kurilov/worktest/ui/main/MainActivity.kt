@@ -1,7 +1,10 @@
 package com.kurilov.worktest.ui.main
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.webkit.WebView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -9,11 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kurilov.worktest.data.classes.Answer
 import com.kurilov.worktest.data.classes.Article
 import com.kurilov.worktest.databinding.ActivityMainBinding
+import com.kurilov.worktest.ui.webview.WebViewActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+
+    private val cellClickListener = CellClickListener()
 
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
@@ -29,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         setupUI()
 
         getNews()
-
     }
 
     private fun setupViewModel() {
@@ -39,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupUI() {
         binding.newsRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        adapter = NewsListAdapter()
+        adapter = NewsListAdapter(cellClickListener)
         binding.newsRecyclerView.adapter = adapter
     }
 
@@ -61,5 +66,13 @@ class MainActivity : AppCompatActivity() {
 
 
         })
+    }
+
+    inner class CellClickListener {
+        fun onClick(url : String) {
+            val intent = Intent(this@MainActivity, WebViewActivity::class.java)
+            intent.putExtra("url", url)
+            startActivity(intent)
+        }
     }
 }
